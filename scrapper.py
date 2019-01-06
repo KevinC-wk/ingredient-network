@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import csv
 
+# Scrolls to the bottom of the page to load more recipes
 def scroll(driver):
 	SCROLL_PAUSE_TIME = 2.0
 
@@ -13,6 +14,7 @@ def scroll(driver):
 		driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 		sleep(SCROLL_PAUSE_TIME)
 
+# Returns the recipe links from the url passed in representing a category of cuisine
 def get_recipe_links(driver, url):
     recipies = []
     print('Getting recipe links from %s' % url)
@@ -33,6 +35,7 @@ def get_recipe_links(driver, url):
     finally:
         return recipies
 
+# Retrieves the recipe information from the recipe card and tags them with the corresponding cuisine
 def get_recipe_information(driver, recipe_id, recipe_tag):
 	information = []
 	print('Getting Recipe Information')
@@ -63,6 +66,7 @@ def get_recipe_information(driver, recipe_id, recipe_tag):
 		return None
 
 
+# Retrieves user reviews from the url maximum retrieved is always 30
 def get_user_reviews(driver, recipe_id):
 	print("Getting user reviews")
 	reviews = []
@@ -98,23 +102,23 @@ def get_user_reviews(driver, recipe_id):
 
 
 if __name__ == '__main__':
-	urls = [#"https://www.allrecipes.com/recipes/723/world-cuisine/european/italian",
-	#"https://www.allrecipes.com/recipes/726/world-cuisine/european/spanish",
-	#"https://www.allrecipes.com/recipes/731/world-cuisine/european/greek",
-	#"https://www.allrecipes.com/recipes/721/world-cuisine/european/french",
-	#"https://www.allrecipes.com/recipes/722/world-cuisine/european/german",
-	#"https://www.allrecipes.com/recipes/724/world-cuisine/european/portuguese",
-	#"https://www.allrecipes.com/recipes/695/world-cuisine/asian/chinese",
-	#"https://www.allrecipes.com/recipes/702/world-cuisine/asian/thai",
-	#"https://www.allrecipes.com/recipes/233/world-cuisine/asian/indian",
-	#"https://www.allrecipes.com/recipes/728/world-cuisine/latin-american/mexican",
-	#"https://www.allrecipes.com/recipes/700/world-cuisine/asian/korean",
-	#"https://www.allrecipes.com/recipes/699/world-cuisine/asian/japanese",
-	#"https://www.allrecipes.com/recipes/703/world-cuisine/asian/vietnamese",
+	urls = ["https://www.allrecipes.com/recipes/723/world-cuisine/european/italian",
+	"https://www.allrecipes.com/recipes/726/world-cuisine/european/spanish",
+	"https://www.allrecipes.com/recipes/731/world-cuisine/european/greek",
+	"https://www.allrecipes.com/recipes/721/world-cuisine/european/french",
+	"https://www.allrecipes.com/recipes/722/world-cuisine/european/german",
+	"https://www.allrecipes.com/recipes/724/world-cuisine/european/portuguese",
+	"https://www.allrecipes.com/recipes/695/world-cuisine/asian/chinese",
+	"https://www.allrecipes.com/recipes/702/world-cuisine/asian/thai",
+	"https://www.allrecipes.com/recipes/233/world-cuisine/asian/indian",
+	"https://www.allrecipes.com/recipes/728/world-cuisine/latin-american/mexican",
+	"https://www.allrecipes.com/recipes/700/world-cuisine/asian/korean",
+	"https://www.allrecipes.com/recipes/699/world-cuisine/asian/japanese",
+	"https://www.allrecipes.com/recipes/703/world-cuisine/asian/vietnamese",
 	"https://www.allrecipes.com/recipes/230/world-cuisine/latin-american/caribbean/jamaican",
 	"https://www.allrecipes.com/recipes/709/world-cuisine/latin-american/caribbean/cuban"]
 	driver = webdriver.Firefox()
-	index = 735
+	index = 0
 	for url in urls:
 		links = get_recipe_links(driver, url)
 		print("Amount of links for this url %d" % len(links))
